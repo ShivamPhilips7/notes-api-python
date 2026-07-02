@@ -20,7 +20,7 @@ spec:
       containers:
         - name: notes-api
 
-          image: yobroyo7/notes-api:v2
+          image: yobroyo7/notes-api:latest
           imagePullPolicy: Always
 
           ports:

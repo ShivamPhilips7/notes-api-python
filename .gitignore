@@ -6,6 +6,8 @@ __pycache__/
 # Environment variables
 .env
 .env.test
+.env.local
+.env.docker
 
 # Test & coverage
 .pytest_cache/
