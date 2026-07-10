@@ -23,6 +23,9 @@ class AuthService:
     ):
         self.repository = repository
 
+    async def get_all_users(self):
+        return await self.repository.get_all_users()
+
     async def register(
         self,
         request: UserRegister,
@@ -55,6 +58,7 @@ class AuthService:
             username=request.username,
             email=request.email,
             password=hash_password(request.password),
+            role = "USER",
             created_at=datetime.now(),
         )
 

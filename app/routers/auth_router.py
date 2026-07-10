@@ -3,8 +3,10 @@ from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
 from app.dependencies import get_auth_service
+from app.models.user import User
 from app.schemas.auth import Token, UserRegister, UserResponse
 from app.services.auth_service import AuthService
+from app.security.roles import require_role
 
 logger = logging.getLogger(__name__)
 
@@ -37,3 +39,13 @@ async def login(
 ):
     logger.info(f"Authenticating user: {form_data.username}")
     return await service.authenticate(form_data)
+
+@router.get(
+    "/users",
+    response_model=list[UserResponse],
+)
+async def get_all_users(
+    service: AuthService = Depends(get_auth_service),
+    current_user: User = Depends(require_role("ADMIN")),
+):
+    return await service.get_all_users()

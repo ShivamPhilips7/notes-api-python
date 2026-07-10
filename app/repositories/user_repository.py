@@ -24,6 +24,13 @@ class UserRepository:
         )
 
         return result.scalar_one_or_none()
+    
+    async def get_all_users(self):
+        result = await self.db.execute(
+        select(User)
+    )
+
+        return result.scalars().all()
 
     async def get_by_email(
         self,
