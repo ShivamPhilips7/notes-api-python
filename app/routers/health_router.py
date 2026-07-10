@@ -7,4 +7,4 @@ router = APIRouter(tags=["Health"])
 async def health():
     return {
         "status": "UP"
-    }
+    } 
