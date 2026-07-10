@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, status
 
 from app.dependencies import get_note_service
 from app.schemas.note import NoteCreate, NoteResponse, NoteUpdate
+from app.security.roles import require_role
 from app.services.note_service import NoteService
 from app.dependencies import (
     get_current_user,
@@ -74,7 +75,7 @@ async def update_note(
 )
 async def delete_note(
     note_id: UUID,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_role("ADMIN")),
     service: NoteService = Depends(get_note_service),
 ):
     logger.info(f"Deleting note: {note_id}")
