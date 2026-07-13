@@ -7,9 +7,15 @@ echo "======================================"
 python - <<EOF
 import socket
 import time
+import os
+from urllib.parse import urlparse
 
-host = "postgres-service"
-port = 5432
+database_url = os.environ["DATABASE_URL"]
+
+parsed_url = urlparse(database_url)
+host = parsed_url.hostname
+port = parsed_url.port
+
 
 while True:
     try:

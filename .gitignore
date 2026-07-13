@@ -1,23 +1,64 @@
+# -----------------------------
 # Python
-venv/
+# -----------------------------
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
+*.so
 
-# Environment variables
+# Virtual environments
+venv/
+.venv/
+env/
+
+# -----------------------------
+# Environment files
+# -----------------------------
 .env
-.env.test
-.env.local
-.env.docker
+.env.*
+!.env.example
 
-# Test & coverage
+# -----------------------------
+# Testing
+# -----------------------------
 .pytest_cache/
 .coverage
+coverage.xml
 htmlcov/
 
-# IDE
+# -----------------------------
+# IDEs
+# -----------------------------
 .vscode/
 .idea/
 
+# -----------------------------
 # OS files
+# -----------------------------
 .DS_Store
 Thumbs.db
+
+# -----------------------------
+# Logs
+# -----------------------------
+*.log
+
+# -----------------------------
+# Build artifacts
+# -----------------------------
+dist/
+build/
+*.egg-info/
+
+# -----------------------------
+# Python cache
+# -----------------------------
+.mypy_cache/
+.ruff_cache/
+
+# -----------------------------
+# Database
+# -----------------------------
+*.db
+*.sqlite3
