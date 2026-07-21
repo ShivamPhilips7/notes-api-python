@@ -7,6 +7,11 @@ class Settings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
+    # Kafka
+    KAFKA_BOOTSTRAP_SERVERS: str
+    KAFKA_TOPIC: str = "notes.events"
+    KAFKA_CLIENT_ID: str = "notes-api"
+
     model_config = SettingsConfigDict(
         env_file=".env.local",
         extra="ignore"

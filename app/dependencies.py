@@ -1,6 +1,7 @@
 from fastapi import Depends
+from fastapi import Request
 from sqlalchemy.ext.asyncio import AsyncSession
-
+from app.kafka.producer import KafkaProducerService
 from app.config.database import get_db
 from app.repositories.note_repository import NoteRepository
 from app.repositories.user_repository import UserRepository
@@ -14,6 +15,13 @@ from app.security.jwt_handler import (
     oauth2_scheme,
 )
 
+def get_kafka_producer(
+    request: Request,
+) -> KafkaProducerService:
+    """
+    Returns the application-wide Kafka producer.
+    """
+    return request.app.state.kafka_producer
 
 def get_note_repository(
     db: AsyncSession = Depends(get_db),
@@ -23,8 +31,9 @@ def get_note_repository(
 
 def get_note_service(
     repository: NoteRepository = Depends(get_note_repository),
+    kafka_producer: KafkaProducerService = Depends(get_kafka_producer),
 ) -> NoteService:
-    return NoteService(repository)
+    return NoteService(repository, kafka_producer)
 
 
 def get_user_repository(
