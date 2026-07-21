@@ -3,6 +3,7 @@ from unittest.mock import AsyncMock
 
 from app.repositories.note_repository import NoteRepository
 from app.repositories.user_repository import UserRepository
+from app.kafka.producer import KafkaProducerService
 
 
 @pytest.fixture
@@ -33,3 +34,14 @@ def mock_note_repository():
     repository.delete_note = AsyncMock()
 
     return repository
+
+@pytest.fixture
+def mock_kafka_producer():
+    """
+    Mock KafkaProducerService for NoteService tests.
+    """
+    producer = AsyncMock(spec=KafkaProducerService)
+
+    producer.publish = AsyncMock()
+
+    return producer
